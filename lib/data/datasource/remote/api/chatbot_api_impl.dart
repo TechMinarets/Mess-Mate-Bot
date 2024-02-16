@@ -3,7 +3,7 @@ import 'package:messmatebot/data/datasource/remote/utils/api_client.dart';
 
 class ChatBotApiImpl implements ChatBotApi {
   final ApiClient _client;
-  static const String chatbotUrl = '/chatbot';
+  static const String chatbotUrl = 'chatbot/';
 
   ChatBotApiImpl({required ApiClient client}) : _client = client;
 
