@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "682961559262",
+    "project_id": "messmatebot-b89e4",
+    "storage_bucket": "messmatebot-b89e4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:682961559262:android:c4989452bdd816ca322c4f",
+        "android_client_info": {
+          "package_name": "com.techminarets.messmatebot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "682961559262-3st9mf88qkboja09lfhggiehkc8m8ue0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCotJ4PQX8RBlNu85VSxqpS1JsqrB9U_Tc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "682961559262-3st9mf88qkboja09lfhggiehkc8m8ue0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -38,6 +38,8 @@ dependencies:
   flutter_riverpod: ^2.4.10
   go_router: ^13.2.0
   url_strategy: ^0.2.0
+  firebase_core:
+  firebase_auth:
 
 dev_dependencies:
   flutter_test:

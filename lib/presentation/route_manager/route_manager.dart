@@ -21,4 +21,6 @@ abstract class RouteManager {
     Map<String, String> pathParameters = const {},
     Map<String, String> queryParameters = const {},
   });
+
+  void goToHomeScreen();
 }

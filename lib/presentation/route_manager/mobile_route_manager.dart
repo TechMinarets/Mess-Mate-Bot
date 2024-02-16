@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:messmatebot/presentation/route_manager/route_manager.dart';
+import 'package:messmatebot/presentation/route_manager/routes.dart';
 
 class MobileRouteManager implements RouteManager {
   final BuildContext context;
@@ -37,5 +38,10 @@ class MobileRouteManager implements RouteManager {
       pathParameters: pathParameters,
       queryParameters: queryParameters,
     );
+  }
+
+  @override
+  void goToHomeScreen() {
+    return context.pushReplacementNamed(Routes.home);
   }
 }

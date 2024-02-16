@@ -1,11 +1,21 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:messmatebot/presentation/route_manager/routes.dart';
 import 'package:url_strategy/url_strategy.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+        apiKey: "AIzaSyCotJ4PQX8RBlNu85VSxqpS1JsqrB9U_Tc",
+        appId: "1:682961559262:android:c4989452bdd816ca322c4f",
+        messagingSenderId: "682961559262",
+        projectId: "messmatebot-b89e4",
+        storageBucket: "messmatebot-b89e4.appspot.com"),
+  );
 
   GoRouter.optionURLReflectsImperativeAPIs = true;
   setPathUrlStrategy();
