@@ -28,7 +28,7 @@ class AppRouter {
         name: Routes.home,
         path: '/home',
         pageBuilder: (context, state) {
-          return const NoTransitionPage(
+          return NoTransitionPage(
             name: Routes.home,
             child: HomePage(),
           );
