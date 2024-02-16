@@ -44,6 +44,9 @@ dependencies:
   platform_info: ^4.0.2
   package_info_plus: ^5.0.1
   freezed: ^2.4.7
+  http:
+  flutter_tts:
+  animate_do:
 
 dev_dependencies:
   flutter_test:
