@@ -44,4 +44,9 @@ class MobileRouteManager implements RouteManager {
   void goToHomeScreen() {
     return context.pushReplacementNamed(Routes.home);
   }
+
+  @override
+  Future<void> goToChatBotPage() {
+    return context.pushNamed(Routes.chatBot);
+  }
 }

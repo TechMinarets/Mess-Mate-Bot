@@ -23,4 +23,6 @@ abstract class RouteManager {
   });
 
   void goToHomeScreen();
+
+  void goToChatBotPage();
 }
