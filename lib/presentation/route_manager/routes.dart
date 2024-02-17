@@ -68,7 +68,7 @@ class AppRouter {
           final queryParameters = state.uri.queryParameters;
           return NoTransitionPage(
             name: Routes.chatBot,
-            child: ChatBotPage(
+            child: ChatBotScreen(
                 categoryId: int.parse(queryParameters['category_id']!)),
           );
         },

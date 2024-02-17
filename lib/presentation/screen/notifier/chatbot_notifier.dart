@@ -51,6 +51,10 @@ class ChatBotNotifier extends StateNotifier<ChatbotUiState> {
       state = ChatbotUiState.error(e.toString());
     }
   }
+
+  void clearChatBotMessages() {
+    state = const ChatbotUiState.loading();
+  }
 }
 
 final chatBotNotifierProvider =

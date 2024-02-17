@@ -5,20 +5,18 @@ import 'package:messmatebot/domain/model/chat_bot/request_body.dart';
 import 'package:messmatebot/presentation/screen/home/content_table.dart';
 import 'package:messmatebot/presentation/screen/notifier/chatbot_notifier.dart';
 
-class ChatBotPage extends ConsumerStatefulWidget {
+class ChatBotScreen extends ConsumerStatefulWidget {
   final int categoryId;
 
-  const ChatBotPage({super.key, required this.categoryId});
+  const ChatBotScreen({super.key, required this.categoryId});
 
   @override
-  ConsumerState<ChatBotPage> createState() => _ChatBotPageState();
+  ConsumerState<ChatBotScreen> createState() => _ChatBotPageState();
 }
 
-class _ChatBotPageState extends ConsumerState<ChatBotPage> {
+class _ChatBotPageState extends ConsumerState<ChatBotScreen> {
   @override
   Widget build(BuildContext context) {
-    ref.read(chatBotNotifierProvider.notifier).fetchChatBotMessages(
-        categoryId: widget.categoryId, isThisFirstCall: true);
     final TextEditingController _promptController = TextEditingController();
     final chatBotResponseList = ref.watch(chatBotNotifierProvider);
 

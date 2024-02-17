@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:messmatebot/domain/model/category/category.dart';
 import 'package:messmatebot/presentation/route_manager/route_manager.dart';
 import 'package:messmatebot/presentation/screen/notifier/category_notifier.dart';
+import 'package:messmatebot/presentation/screen/notifier/chatbot_notifier.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
@@ -180,6 +181,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                   itemBuilder: (context, index) {
                                     return InkWell(
                                       onTap: () {
+                                        ref
+                                            .read(chatBotNotifierProvider
+                                                .notifier)
+                                            .clearChatBotMessages();
+                                        ref
+                                            .read(chatBotNotifierProvider
+                                                .notifier)
+                                            .fetchChatBotMessages(
+                                              categoryId: data[index].id,
+                                            );
                                         RouteManager.of(context)
                                             .goToChatBotPage(
                                                 categoryId: data[index].id);
