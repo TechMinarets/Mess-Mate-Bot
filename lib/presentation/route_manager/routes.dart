@@ -5,6 +5,7 @@ import 'package:messmatebot/auth/signup_page.dart';
 import 'package:messmatebot/presentation/screen/auth/auth_screen.dart';
 import 'package:messmatebot/presentation/screen/auth/root/root_screen.dart';
 import 'package:messmatebot/presentation/screen/home/chatbot_screen.dart';
+import 'package:messmatebot/presentation/screen/home/content_table.dart';
 import 'package:messmatebot/presentation/screen/home/home_screen.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -15,6 +16,7 @@ class Routes {
   static const String signup = '/signup';
   static const String auth = '/auth';
   static const String chatBot = '/chatBot';
+  static const String contentPage = '/contentPage';
 }
 
 class AppRouter {
@@ -73,12 +75,23 @@ class AppRouter {
           );
         },
       ),
+      GoRoute(
+        name: Routes.contentPage,
+        path: '/contentPage',
+        pageBuilder: (context, state) {
+          final queryParameters = state.uri.queryParameters;
+          return NoTransitionPage(
+            name: Routes.chatBot,
+            child: DataListView(),
+          );
+        },
+      ),
     ],
     redirect: (context, state) {
       final currentPath = state.uri.path;
 
       if (currentPath == '/') {
-        return Routes.home;
+        return Routes.contentPage;
       }
       return null;
     },

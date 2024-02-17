@@ -4,42 +4,58 @@ class DataListView extends StatelessWidget {
   DataListView({
     Key? key,
   }) : super(key: key);
+
   List<List<dynamic>> data = [
-    ['Item', 'Entry Date', 'Expense(Tk)'],
-    ['Rice', '12-02-24', '230'],
-    ['Egg', '12-02-24', '120'],
-    ['Potato', '12-02-24', '80'],
+    ['Item', 'Entry Date', 'Expense(Tk)', 'Expense(Tk)'],
+    ['Rice', '12-02-24', '230', '230'],
+    ['Fish', '12-02-24', '120', '120'],
+    ['Egg', '12-02-24', '120', '120'],
+    ['Potato', '12-02-24', '80', '80'],
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Expense Table',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-      ),
+          title: const Text(
+            'Expense Table',
+            style: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.black),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          )),
       body: Padding(
-        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
-        child: ListView.builder(
-          itemCount: data.length,
-          itemBuilder: (context, index) {
-            return Card(
-              child: ListTile(
-                title: Row(
-                  children: data[index]
-                      .map<Widget>((item) => Expanded(
-                            child: Text(
-                              '$item',
-                              textAlign: TextAlign.center,
-                            ),
-                          ))
-                      .toList(),
+        padding: const EdgeInsets.all(8.0),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal, // Enable horizontal scrolling
+          child: DataTable(
+            columns: List.generate(
+              data.first.length,
+              (index) => DataColumn(
+                label: Text(
+                  data.first[index].toString(),
+                  style: TextStyle(fontWeight: FontWeight.bold),
                 ),
               ),
-            );
-          },
+            ),
+            rows: List.generate(
+              data.length - 1,
+              (rowIndex) => DataRow(
+                cells: List.generate(
+                  data[rowIndex + 1].length,
+                  (cellIndex) => DataCell(
+                    Text(data[rowIndex + 1][cellIndex].toString()),
+                  ),
+                ),
+              ),
+            ),
+          ),
         ),
       ),
       bottomNavigationBar: BottomAppBar(
