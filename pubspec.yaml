@@ -47,6 +47,7 @@ dependencies:
   http:
   flutter_tts:
   animate_do:
+  pie_chart:
 
 dev_dependencies:
   flutter_test:

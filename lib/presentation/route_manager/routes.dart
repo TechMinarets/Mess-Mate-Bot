@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:messmatebot/presentation/screen/home/chatbot_screen.dart';
 import 'package:messmatebot/presentation/screen/home/home_screen.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -8,6 +9,7 @@ final rootNavigatorKey = GlobalKey<NavigatorState>();
 class Routes {
   static const String root = '/';
   static const String home = '/home';
+  static const String chatBot = '/chatBot';
 }
 
 class AppRouter {
@@ -30,7 +32,17 @@ class AppRouter {
         pageBuilder: (context, state) {
           return const NoTransitionPage(
             name: Routes.home,
-            child: HomePage(),
+            child: HomeScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        name: Routes.chatBot,
+        path: '/chatBot',
+        pageBuilder: (context, state) {
+          return const NoTransitionPage(
+            name: Routes.chatBot,
+            child: ChatBotPage(),
           );
         },
       ),
