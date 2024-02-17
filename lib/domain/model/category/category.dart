@@ -22,7 +22,6 @@ class Category {
       'name': name,
       'user': user,
       'table': table,
-      'messages': messages,
     };
   }
 }
