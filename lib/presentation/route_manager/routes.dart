@@ -58,8 +58,6 @@ class AppRouter {
           return const NoTransitionPage(
             name: Routes.auth,
             child: AuthScreen(),
-            name: Routes.home,
-            child: HomeScreen(),
           );
         },
       ),
@@ -67,9 +65,11 @@ class AppRouter {
         name: Routes.chatBot,
         path: '/chatBot',
         pageBuilder: (context, state) {
-          return const NoTransitionPage(
+          final queryParameters = state.uri.queryParameters;
+          return NoTransitionPage(
             name: Routes.chatBot,
-            child: ChatBotPage(),
+            child: ChatBotPage(
+                categoryId: int.parse(queryParameters['category_id']!)),
           );
         },
       ),

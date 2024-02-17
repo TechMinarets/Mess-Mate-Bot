@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:messmatebot/domain/model/category/category.dart';
+import 'package:messmatebot/presentation/route_manager/route_manager.dart';
 import 'package:messmatebot/presentation/screen/notifier/category_notifier.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -52,7 +53,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         ),
                         Text(
                           title,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.w500,
                             fontSize: 20,
@@ -60,7 +61,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                         ),
                       ],
                     ),
-                    Divider(
+                    const Divider(
                       height: 05,
                     ),
                     Padding(
@@ -74,7 +75,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                               10.0,
                             ), // Adjust the radius as needed
                           ),
-                          contentPadding: EdgeInsets.symmetric(
+                          contentPadding: const EdgeInsets.symmetric(
                             horizontal: 16.0, // Adjust the padding as needed
                             vertical: 12.0,
                           ),
@@ -97,14 +98,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                             ),
                           ),
                           child: Padding(
-                            padding: EdgeInsets.symmetric(
+                            padding: const EdgeInsets.symmetric(
                               vertical: 12.0,
                             ), // Adjust the padding as needed
                             child: InkWell(
                               onTap: onTap,
                               child: Text(
                                 buttonText,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 16.0,
                                   fontWeight: FontWeight.bold,
                                 ),
@@ -125,10 +126,10 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 20),
+        leading: const Padding(
+          padding: EdgeInsets.only(left: 20),
           child: CircleAvatar(
-            backgroundImage: const AssetImage('assets/images/rezvi.jpg'),
+            backgroundImage: AssetImage('assets/images/rezvi.jpg'),
           ),
         ),
         title: const Text('Welcome Back Rezvi ',
@@ -144,7 +145,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 const SizedBox(height: 20),
-                Text(
+                const Text(
                   'Your Categories are:',
                   style: TextStyle(
                     fontSize: 22,
@@ -174,86 +175,97 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                               success: (data) {
                                 return ListView.builder(
                                   shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
                                   itemCount: data.length,
                                   itemBuilder: (context, index) {
-                                    return Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        const Icon(Icons.book, size: 40),
-                                        const SizedBox(width: 20),
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              data[index].name,
-                                              style: TextStyle(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ],
-                                        ),
-                                        Expanded(child: Container()),
-                                        IconButton(
-                                          onPressed: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (context) => Dialog(
-                                                child: ListView(
-                                                  padding: const EdgeInsets
-                                                      .symmetric(vertical: 16),
-                                                  shrinkWrap: true,
-                                                  children: [
-                                                    InkWell(
-                                                      onTap: () {
-                                                        ref
-                                                            .read(
-                                                                categoryNotifierProvider
-                                                                    .notifier)
-                                                            .deleteCategory(
-                                                                category: data[
-                                                                    index]);
-                                                      },
-                                                      child: Text(
-                                                          'Delete Category'),
-                                                    ),
-                                                    InkWell(
-                                                      onTap: () {
-                                                        openModal(
-                                                          onTap: () {
-                                                            data[index].name =
-                                                                categoryController
-                                                                    .text;
-                                                            ref
-                                                                .read(categoryNotifierProvider
-                                                                    .notifier)
-                                                                .editCategory(
-                                                                    category: data[
-                                                                        index]);
-                                                          },
-                                                          title:
-                                                              'Edit Category Name',
-                                                          hintText:
-                                                              'Category Text',
-                                                          buttonText: 'Save',
-                                                          category: data[index],
-                                                        );
-                                                      },
-                                                      child: Expanded(
-                                                          child: Text(
-                                                              'Edit Name')),
-                                                    ),
-                                                  ],
+                                    return InkWell(
+                                      onTap: () {
+                                        RouteManager.of(context)
+                                            .goToChatBotPage(
+                                                categoryId: data[index].id);
+                                      },
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          const Icon(Icons.book, size: 40),
+                                          const SizedBox(width: 20),
+                                          Column(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                data[index].name,
+                                                style: const TextStyle(
+                                                  fontSize: 18,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
+                                                overflow: TextOverflow.ellipsis,
                                               ),
-                                            );
-                                          },
-                                          icon: Icon(Icons.more_vert),
-                                        )
-                                      ],
+                                            ],
+                                          ),
+                                          Expanded(child: Container()),
+                                          IconButton(
+                                            onPressed: () {
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) => Dialog(
+                                                  child: ListView(
+                                                    padding: const EdgeInsets
+                                                        .symmetric(
+                                                        vertical: 16),
+                                                    shrinkWrap: true,
+                                                    children: [
+                                                      InkWell(
+                                                        onTap: () {
+                                                          ref
+                                                              .read(
+                                                                  categoryNotifierProvider
+                                                                      .notifier)
+                                                              .deleteCategory(
+                                                                  category: data[
+                                                                      index]);
+                                                        },
+                                                        child: const Text(
+                                                            'Delete Category'),
+                                                      ),
+                                                      InkWell(
+                                                        onTap: () {
+                                                          openModal(
+                                                            onTap: () {
+                                                              data[index].name =
+                                                                  categoryController
+                                                                      .text;
+                                                              ref
+                                                                  .read(categoryNotifierProvider
+                                                                      .notifier)
+                                                                  .editCategory(
+                                                                      category:
+                                                                          data[
+                                                                              index]);
+                                                            },
+                                                            title:
+                                                                'Edit Category Name',
+                                                            hintText:
+                                                                'Category Text',
+                                                            buttonText: 'Save',
+                                                            category:
+                                                                data[index],
+                                                          );
+                                                        },
+                                                        child: const Expanded(
+                                                            child: Text(
+                                                                'Edit Name')),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                            icon: const Icon(Icons.more_vert),
+                                          )
+                                        ],
+                                      ),
                                     );
                                   },
                                 );
@@ -281,8 +293,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             buttonText: 'Create',
           );
         },
-        child: Icon(Icons.add),
-        shape: CircleBorder(),
+        child: const Icon(Icons.add),
+        shape: const CircleBorder(),
       ),
     );
   }

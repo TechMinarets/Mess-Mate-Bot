@@ -46,7 +46,12 @@ class MobileRouteManager implements RouteManager {
   }
 
   @override
-  Future<void> goToChatBotPage() {
-    return context.pushNamed(Routes.chatBot);
+  Future<void> goToChatBotPage({required int categoryId}) {
+    return context.pushNamed(
+      Routes.chatBot,
+      queryParameters: {
+        'category_id': categoryId.toString(),
+      },
+    );
   }
 }

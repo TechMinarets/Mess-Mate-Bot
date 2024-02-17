@@ -24,5 +24,5 @@ abstract class RouteManager {
 
   void goToHomeScreen();
 
-  void goToChatBotPage();
+  void goToChatBotPage({required int categoryId});
 }

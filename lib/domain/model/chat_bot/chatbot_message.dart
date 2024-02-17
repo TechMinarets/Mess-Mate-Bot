@@ -1,9 +1,11 @@
-class RequestBody {
+class ChatBotMessage {
   final String prompt;
+  final String response;
   final int categoryId;
 
-  RequestBody({
+  ChatBotMessage({
     required this.prompt,
+    required this.response,
     required this.categoryId,
   });
 }

@@ -9,7 +9,12 @@ class ChatBotDataSourceImpl implements ChatBotDataSource {
   }) : _chatBotApi = chatBotApi;
 
   @override
-  Future getChatBotResponse({required String prompt}) {
-    return _chatBotApi.getChatbotResponse(prompt: prompt);
+  Future getChatBotMessages({required int categoryId}) async {
+    return await _chatBotApi.getChatbotMessages(categoryId: categoryId);
+  }
+
+  @override
+  Future sendChatBotMessage({required Map<String, dynamic> requestBody}) async {
+    return await _chatBotApi.sendChatBotMessage(requestBody: requestBody);
   }
 }

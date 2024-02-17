@@ -1,3 +1,5 @@
 abstract class ChatBotApi {
-  Future getChatbotResponse({required String prompt});
+  Future getChatbotMessages({required int categoryId});
+
+  Future sendChatBotMessage({required Map<String, dynamic> requestBody});
 }

@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'category_ui_state.dart';
+part of 'chatbot_ui_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,29 +15,31 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$CategoryUiState {
+mixin _$ChatbotUiState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Category> categoryList) success,
+    required TResult Function(List<ChatBotMessage> messages) success,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Category> categoryList)? success,
+    TResult? Function(List<ChatBotMessage> messages)? success,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Category> categoryList)? success,
+    TResult Function(List<ChatBotMessage> messages)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(LoadingState value) loading,
@@ -45,6 +47,7 @@ mixin _$CategoryUiState {
     required TResult Function(ErrorState value) error,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LoadingState value)? loading,
@@ -63,18 +66,18 @@ mixin _$CategoryUiState {
 }
 
 /// @nodoc
-abstract class $CategoryUiStateCopyWith<$Res> {
-  factory $CategoryUiStateCopyWith(
-          CategoryUiState value, $Res Function(CategoryUiState) then) =
-      _$CategoryUiStateCopyWithImpl<$Res, CategoryUiState>;
+abstract class $ChatbotUiStateCopyWith<$Res> {
+  factory $ChatbotUiStateCopyWith(
+          ChatbotUiState value, $Res Function(ChatbotUiState) then) =
+      _$ChatbotUiStateCopyWithImpl<$Res, ChatbotUiState>;
 }
 
 /// @nodoc
-class _$CategoryUiStateCopyWithImpl<$Res, $Val extends CategoryUiState>
-    implements $CategoryUiStateCopyWith<$Res> {
-  _$CategoryUiStateCopyWithImpl(this._value, this._then);
+class _$ChatbotUiStateCopyWithImpl<$Res, $Val extends ChatbotUiState>
+    implements $ChatbotUiStateCopyWith<$Res> {
+  _$ChatbotUiStateCopyWithImpl(this._value, this._then);
 
-  // ignore: unused_field
+// ignore: unused_field
   final $Val _value;
 // ignore: unused_field
   final $Res Function($Val) _then;
@@ -89,7 +92,7 @@ abstract class _$$LoadingStateImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingStateImplCopyWithImpl<$Res>
-    extends _$CategoryUiStateCopyWithImpl<$Res, _$LoadingStateImpl>
+    extends _$ChatbotUiStateCopyWithImpl<$Res, _$LoadingStateImpl>
     implements _$$LoadingStateImplCopyWith<$Res> {
   __$$LoadingStateImplCopyWithImpl(
       _$LoadingStateImpl _value, $Res Function(_$LoadingStateImpl) _then)
@@ -103,7 +106,7 @@ class _$LoadingStateImpl implements LoadingState {
 
   @override
   String toString() {
-    return 'CategoryUiState.loading()';
+    return 'ChatbotUiState.loading()';
   }
 
   @override
@@ -119,7 +122,7 @@ class _$LoadingStateImpl implements LoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Category> categoryList) success,
+    required TResult Function(List<ChatBotMessage> messages) success,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -129,7 +132,7 @@ class _$LoadingStateImpl implements LoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Category> categoryList)? success,
+    TResult? Function(List<ChatBotMessage> messages)? success,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -139,7 +142,7 @@ class _$LoadingStateImpl implements LoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Category> categoryList)? success,
+    TResult Function(List<ChatBotMessage> messages)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -184,7 +187,7 @@ class _$LoadingStateImpl implements LoadingState {
   }
 }
 
-abstract class LoadingState implements CategoryUiState {
+abstract class LoadingState implements ChatbotUiState {
   const factory LoadingState() = _$LoadingStateImpl;
 }
 
@@ -194,12 +197,12 @@ abstract class _$$SuccessStateImplCopyWith<$Res> {
           _$SuccessStateImpl value, $Res Function(_$SuccessStateImpl) then) =
       __$$SuccessStateImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Category> categoryList});
+  $Res call({List<ChatBotMessage> messages});
 }
 
 /// @nodoc
 class __$$SuccessStateImplCopyWithImpl<$Res>
-    extends _$CategoryUiStateCopyWithImpl<$Res, _$SuccessStateImpl>
+    extends _$ChatbotUiStateCopyWithImpl<$Res, _$SuccessStateImpl>
     implements _$$SuccessStateImplCopyWith<$Res> {
   __$$SuccessStateImplCopyWithImpl(
       _$SuccessStateImpl _value, $Res Function(_$SuccessStateImpl) _then)
@@ -208,13 +211,13 @@ class __$$SuccessStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? categoryList = null,
+    Object? messages = null,
   }) {
     return _then(_$SuccessStateImpl(
-      null == categoryList
-          ? _value._categoryList
-          : categoryList // ignore: cast_nullable_to_non_nullable
-              as List<Category>,
+      null == messages
+          ? _value._messages
+          : messages // ignore: cast_nullable_to_non_nullable
+              as List<ChatBotMessage>,
     ));
   }
 }
@@ -222,20 +225,20 @@ class __$$SuccessStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SuccessStateImpl implements SuccessState {
-  const _$SuccessStateImpl(final List<Category> categoryList)
-      : _categoryList = categoryList;
+  const _$SuccessStateImpl(final List<ChatBotMessage> messages)
+      : _messages = messages;
 
-  final List<Category> _categoryList;
+  final List<ChatBotMessage> _messages;
   @override
-  List<Category> get categoryList {
-    if (_categoryList is EqualUnmodifiableListView) return _categoryList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_categoryList);
+  List<ChatBotMessage> get messages {
+    if (_messages is EqualUnmodifiableListView) return _messages;
+// ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_messages);
   }
 
   @override
   String toString() {
-    return 'CategoryUiState.success(categoryList: $categoryList)';
+    return 'ChatbotUiState.success(messages: $messages)';
   }
 
   @override
@@ -243,13 +246,12 @@ class _$SuccessStateImpl implements SuccessState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$SuccessStateImpl &&
-            const DeepCollectionEquality()
-                .equals(other._categoryList, _categoryList));
+            const DeepCollectionEquality().equals(other._messages, _messages));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_categoryList));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_messages));
 
   @JsonKey(ignore: true)
   @override
@@ -261,32 +263,32 @@ class _$SuccessStateImpl implements SuccessState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Category> categoryList) success,
+    required TResult Function(List<ChatBotMessage> messages) success,
     required TResult Function(String message) error,
   }) {
-    return success(categoryList);
+    return success(messages);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Category> categoryList)? success,
+    TResult? Function(List<ChatBotMessage> messages)? success,
     TResult? Function(String message)? error,
   }) {
-    return success?.call(categoryList);
+    return success?.call(messages);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Category> categoryList)? success,
+    TResult Function(List<ChatBotMessage> messages)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(categoryList);
+      return success(messages);
     }
     return orElse();
   }
@@ -326,11 +328,11 @@ class _$SuccessStateImpl implements SuccessState {
   }
 }
 
-abstract class SuccessState implements CategoryUiState {
-  const factory SuccessState(final List<Category> categoryList) =
+abstract class SuccessState implements ChatbotUiState {
+  const factory SuccessState(final List<ChatBotMessage> messages) =
       _$SuccessStateImpl;
 
-  List<Category> get categoryList;
+  List<ChatBotMessage> get messages;
   @JsonKey(ignore: true)
   _$$SuccessStateImplCopyWith<_$SuccessStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -347,7 +349,7 @@ abstract class _$$ErrorStateImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorStateImplCopyWithImpl<$Res>
-    extends _$CategoryUiStateCopyWithImpl<$Res, _$ErrorStateImpl>
+    extends _$ChatbotUiStateCopyWithImpl<$Res, _$ErrorStateImpl>
     implements _$$ErrorStateImplCopyWith<$Res> {
   __$$ErrorStateImplCopyWithImpl(
       _$ErrorStateImpl _value, $Res Function(_$ErrorStateImpl) _then)
@@ -377,7 +379,7 @@ class _$ErrorStateImpl implements ErrorState {
 
   @override
   String toString() {
-    return 'CategoryUiState.error(message: $message)';
+    return 'ChatbotUiState.error(message: $message)';
   }
 
   @override
@@ -401,7 +403,7 @@ class _$ErrorStateImpl implements ErrorState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Category> categoryList) success,
+    required TResult Function(List<ChatBotMessage> messages) success,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -411,7 +413,7 @@ class _$ErrorStateImpl implements ErrorState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Category> categoryList)? success,
+    TResult? Function(List<ChatBotMessage> messages)? success,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -421,7 +423,7 @@ class _$ErrorStateImpl implements ErrorState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Category> categoryList)? success,
+    TResult Function(List<ChatBotMessage> messages)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -466,7 +468,7 @@ class _$ErrorStateImpl implements ErrorState {
   }
 }
 
-abstract class ErrorState implements CategoryUiState {
+abstract class ErrorState implements ChatbotUiState {
   const factory ErrorState(final String message) = _$ErrorStateImpl;
 
   String get message;

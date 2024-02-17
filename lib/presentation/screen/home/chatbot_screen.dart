@@ -3,54 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:messmatebot/domain/model/chat_bot/request_body.dart';
 import 'package:messmatebot/presentation/screen/home/content_table.dart';
-import 'package:messmatebot/presentation/screen/notifier/providers.dart';
+import 'package:messmatebot/presentation/screen/notifier/chatbot_notifier.dart';
 
 class ChatBotPage extends ConsumerStatefulWidget {
-  const ChatBotPage({super.key});
+  final int categoryId;
+
+  const ChatBotPage({super.key, required this.categoryId});
 
   @override
   ConsumerState<ChatBotPage> createState() => _ChatBotPageState();
 }
 
 class _ChatBotPageState extends ConsumerState<ChatBotPage> {
-  String lastWords = '';
-
-  String? generatedContent;
-  String? generatedImageUrl;
-  int start = 200;
-  int delay = 200;
-
-  final List<Map<String, String>> messages = [
-    {
-      'prompt': ' Add 130 Tk to buy Egg',
-      'response': 'You said "Add 130 Tk to buy Egg". Do you confirm? ',
-    },
-    {
-      'prompt': 'Yes',
-      'response': 'Alright! Added to the Table.',
-    },
-    {
-      'prompt': 'Last time\'s rice price?',
-      'response': 'Last time you bought Rice for 75Tk Per kg',
-    },
-    {
-      'prompt': 'Thank You',
-      'response': 'You are welcome!',
-    },
-    {
-      'prompt': 'Thank You',
-      'response': 'You are welcome!',
-    },
-    {
-      'prompt': 'Thank You',
-      'response': 'You are welcome!',
-    }
-  ];
-
   @override
   Widget build(BuildContext context) {
+    ref.read(chatBotNotifierProvider.notifier).fetchChatBotMessages(
+        categoryId: widget.categoryId, isThisFirstCall: true);
     final TextEditingController _promptController = TextEditingController();
-    final chatBotResponseList = ref.watch(chatResponseNotifierProvider);
+    final chatBotResponseList = ref.watch(chatBotNotifierProvider);
+
     return Scaffold(
       appBar: AppBar(
         title: BounceInDown(
@@ -100,57 +71,69 @@ class _ChatBotPageState extends ConsumerState<ChatBotPage> {
               height: 20,
             ),
 
-            //chat text response
-            Expanded(
-              child: ListView.builder(
-                itemCount: messages.length,
-                itemBuilder: (context, index) {
-                  var prompt = messages[index]['prompt'];
-                  var response = messages[index]['response'];
-                  return ListTile(
-                    contentPadding:
-                        const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-                    title: Align(
-                      alignment: Alignment.centerRight,
-                      child: Padding(
-                        padding: const EdgeInsets.fromLTRB(30, 05, 0, 5),
-                        child: Container(
-                          padding:
-                              EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                          decoration: BoxDecoration(
-                            color: Colors.blueAccent,
-                            borderRadius: BorderRadius.circular(12),
-                          ),
-                          child: Text(
-                            prompt!,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold,
+            ref.watch(chatBotNotifierProvider).maybeWhen(
+                  loading: () => const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                  success: (messages) {
+                    return Expanded(
+                      child: ListView.builder(
+                        itemCount: messages.length,
+                        itemBuilder: (context, index) {
+                          var prompt = messages[index].prompt;
+                          var response = messages[index].response;
+                          return ListTile(
+                            contentPadding: const EdgeInsets.symmetric(
+                                vertical: 4, horizontal: 16),
+                            title: Align(
+                              alignment: Alignment.centerRight,
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.fromLTRB(30, 05, 0, 5),
+                                child: Container(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: 8, horizontal: 12),
+                                  decoration: BoxDecoration(
+                                    color: Colors.blueAccent,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: Text(
+                                    prompt!,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
+                            subtitle: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Container(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 8, horizontal: 12),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.shade300,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Text(
+                                  response!,
+                                  style: TextStyle(fontSize: 16.0),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
                       ),
-                    ),
-                    subtitle: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        padding:
-                            EdgeInsets.symmetric(vertical: 8, horizontal: 12),
-                        decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Text(
-                          response!,
-                          style: TextStyle(fontSize: 16.0),
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
+                    );
+                  },
+                  error: (error) => Center(
+                    child: Text(error),
+                  ),
+                  orElse: () => const SizedBox.shrink(),
+                ),
+            //chat text response
 
             //
             // for (int i = 0; i < chatBotResponseList.length; i++)
@@ -250,20 +233,31 @@ class _ChatBotPageState extends ConsumerState<ChatBotPage> {
               children: [
                 InkWell(
                   onTap: () async {
-                    ref
-                        .read(chatResponseNotifierProvider.notifier)
-                        .fetchChatBotResponse(
-                            requestBody: RequestBody(
-                                prompt: _promptController.text.toString()));
+                    // ref
+                    //     .read(chatResponseNotifierProvider.notifier)
+                    //     .fetchChatBotResponse(
+                    //         requestBody: RequestBody(
+                    //             prompt: _promptController.text.toString()));
 
                     setState(() {
                       _promptController.text = "";
                     });
                   },
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                    child: const Icon(Icons.send),
+                  child: InkWell(
+                    onTap: () async {
+                      ref
+                          .read(chatBotNotifierProvider.notifier)
+                          .sendChatBotMessage(
+                            requestBody: RequestBody(
+                                prompt: _promptController.text.toString(),
+                                categoryId: widget.categoryId),
+                          );
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 8, horizontal: 8),
+                      child: const Icon(Icons.send),
+                    ),
                   ),
                 ),
                 InkWell(

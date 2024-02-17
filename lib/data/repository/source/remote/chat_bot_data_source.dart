@@ -1,3 +1,5 @@
 abstract class ChatBotDataSource {
-  Future getChatBotResponse({required String prompt});
+  Future getChatBotMessages({required int categoryId});
+
+  Future sendChatBotMessage({required Map<String, dynamic> requestBody});
 }
