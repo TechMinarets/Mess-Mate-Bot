@@ -140,27 +140,26 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(20, 10, 20, 10),
+          padding: const EdgeInsets.fromLTRB(20, 15, 20, 10),
           child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                const SizedBox(height: 20),
                 const Text(
                   'Your Categories are:',
                   style: TextStyle(
                     fontSize: 22,
-                    fontWeight: FontWeight.w400,
+                    fontWeight: FontWeight.w500,
                     color: Colors.black,
                   ),
                 ),
-                const SizedBox(height: 20),
+                //const SizedBox(height: 10),
                 Column(
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(
-                        left: 10,
-                        right: 5,
+                        left: 0,
+                        right: 0,
                         top: 10,
                         bottom: 10,
                       ),
@@ -202,8 +201,14 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(10),
+                                            side: const BorderSide(
+                                              color: Colors.black,
+                                              width: 1,
+                                            ),
                                           ),
-                                          color: Colors.grey.shade200,
+                                          color: index % 2 == 0
+                                              ? Color(0xFFE7F0FF)
+                                              : Color(0xFFE0FFDD),
                                         ),
                                         child: Row(
                                           mainAxisAlignment:
@@ -270,7 +275,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                                                         .black,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .bold,
+                                                                            .w400,
                                                                     fontSize:
                                                                         22,
                                                                   ),
@@ -318,7 +323,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                                                                         .black,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .bold,
+                                                                            .w400,
                                                                     fontSize:
                                                                         22,
                                                                   ),

@@ -20,24 +20,27 @@ class DataListView extends StatelessWidget {
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),
-      body: ListView.builder(
-        itemCount: data.length,
-        itemBuilder: (context, index) {
-          return Card(
-            child: ListTile(
-              title: Row(
-                children: data[index]
-                    .map<Widget>((item) => Expanded(
-                          child: Text(
-                            '$item',
-                            textAlign: TextAlign.center,
-                          ),
-                        ))
-                    .toList(),
+      body: Padding(
+        padding: const EdgeInsets.only(left: 8.0, right: 8.0),
+        child: ListView.builder(
+          itemCount: data.length,
+          itemBuilder: (context, index) {
+            return Card(
+              child: ListTile(
+                title: Row(
+                  children: data[index]
+                      .map<Widget>((item) => Expanded(
+                            child: Text(
+                              '$item',
+                              textAlign: TextAlign.center,
+                            ),
+                          ))
+                      .toList(),
+                ),
               ),
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
       bottomNavigationBar: BottomAppBar(
         height: kToolbarHeight,

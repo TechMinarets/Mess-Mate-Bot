@@ -1,9 +1,13 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:messmatebot/domain/model/chat_bot/request_body.dart';
 import 'package:messmatebot/presentation/screen/home/content_table.dart';
+import 'package:messmatebot/presentation/screen/home/openai_service.dart';
 import 'package:messmatebot/presentation/screen/notifier/chatbot_notifier.dart';
+import 'package:speech_to_text/speech_recognition_result.dart';
+import 'package:speech_to_text/speech_to_text.dart';
 
 class ChatBotScreen extends ConsumerStatefulWidget {
   final int categoryId;
@@ -15,6 +19,60 @@ class ChatBotScreen extends ConsumerStatefulWidget {
 }
 
 class _ChatBotPageState extends ConsumerState<ChatBotScreen> {
+  final speechToText = SpeechToText();
+  final flutterTts = FlutterTts();
+  String lastWords = '';
+  final OpenAIService openAIService = OpenAIService();
+  String? generatedContent;
+  String? generatedImageUrl;
+
+  @override
+  void initState() {
+    super.initState();
+    initSpeechToText();
+    //  initTextToSpeech();
+  }
+
+  Future<void> initSpeechToText() async {
+    await speechToText.initialize();
+    setState(() {});
+  }
+
+  /// Each time to start a speech recognition session
+  Future<void> startListening() async {
+    await speechToText.listen(onResult: onSpeechResult);
+    setState(() {});
+  }
+
+  /// Manually stop the active speech recognition session
+  /// Note that there are also timeouts that each platform enforces
+  /// and the SpeechToText plugin supports setting timeouts on the
+  /// listen method.
+  Future<void> stopListening() async {
+    await speechToText.stop();
+    setState(() {});
+  }
+
+  /// This is the callback that the SpeechToText plugin calls when
+  /// the platform returns recognized words.
+  void onSpeechResult(SpeechRecognitionResult result) {
+    setState(() {
+      lastWords = result.recognizedWords;
+    });
+  }
+
+  Future<void> systemSpeak(String content) async {
+    await flutterTts.speak(content);
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    speechToText.stop();
+    flutterTts.stop();
+  }
+
   @override
   Widget build(BuildContext context) {
     final TextEditingController _promptController = TextEditingController();
@@ -260,18 +318,35 @@ class _ChatBotPageState extends ConsumerState<ChatBotScreen> {
                 ),
                 InkWell(
                   onTap: () async {
-                    // ref
-                    //     .read(chatResponseNotifierProvider.notifier)
-                    //     .fetchChatBotResponse(
-                    //     requestBody: RequestBody(
-                    //         prompt: _promptController.text.toString()));
-                    //
-                    // setState(() {
-                    //   _promptController.text = "";
-                    //});
+                    if (await speechToText.hasPermission &&
+                        speechToText.isNotListening) {
+                      print('Started Listening');
+                      await startListening();
+                    } else if (speechToText.isListening) {
+                      print('stopped listening');
+                      final speech =
+                          await openAIService.isArtPromptAPI(lastWords);
+                      print(speech.toString());
+                      if (speech.contains('https')) {
+                        generatedImageUrl = speech;
+                        generatedContent = null;
+                        setState(() {});
+                      } else {
+                        generatedImageUrl = null;
+                        generatedContent = speech;
+                        setState(() {});
+                        await systemSpeak(speech);
+                      }
+                      await stopListening();
+                      print(lastWords);
+                    } else {
+                      initSpeechToText();
+                    }
                   },
                   child: Container(
-                    child: const Icon(Icons.mic),
+                    child: Icon(
+                      speechToText.isListening ? Icons.stop : Icons.mic,
+                    ),
                   ),
                 ),
               ],

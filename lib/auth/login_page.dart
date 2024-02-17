@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:messmatebot/auth/auth_methods.dart';
 import 'package:messmatebot/auth/signup_page.dart';
-import 'package:messmatebot/auth/text_field_input_widget.dart';
-import 'package:messmatebot/presentation/route_manager/route_manager.dart';
 import 'package:messmatebot/presentation/screen/auth/notifier/auth_notifier.dart';
 import 'package:messmatebot/presentation/screen/auth/state/auth_ui_state.dart';
 import 'package:messmatebot/presentation/screen/home/home_screen.dart';
@@ -75,23 +72,23 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 const SizedBox(
                   height: 64,
                 ),
-                TextFieldInput(
-                  hintText: 'Enter your email',
-                  textInputType: TextInputType.emailAddress,
-                  textEditingController: _emailController,
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                TextFieldInput(
-                  hintText: 'Enter your password',
-                  textInputType: TextInputType.text,
-                  textEditingController: _passwordController,
-                  isPass: true,
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
+                // TextFieldInput(
+                //   hintText: 'Enter your email',
+                //   textInputType: TextInputType.emailAddress,
+                //   textEditingController: _emailController,
+                // ),
+                // const SizedBox(
+                //   height: 24,
+                // ),
+                // TextFieldInput(
+                //   hintText: 'Enter your password',
+                //   textInputType: TextInputType.text,
+                //   textEditingController: _passwordController,
+                //   isPass: true,
+                // ),
+                // const SizedBox(
+                //   height: 24,
+                // ),
                 // InkWell(
                 //   onTap: loginUser,
                 //   child: Container(
