@@ -3,25 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  //Getting user details
-
-  // Future<UserModel> getUserDetails() async {
-  //   //this User is FirebaseAuth's User
-  //   User currentUser = _auth.currentUser!;
-  //
-  //   DocumentSnapshot snap = await _firestore
-  //       .collection('users')
-  //       .doc(
-  //     currentUser.uid,
-  //   )
-  //       .get();
-  //
-  //   print(snap.data());
-  //
-  //   return UserModel.fromSnap(snap);
-  // }
-
-  //signup user
   Future<String> signUpUser({
     required String email,
     required String password,
@@ -36,21 +17,6 @@ class AuthMethods {
         );
 
         print("SIgn up completed, userId = ${cred.user!.uid}");
-
-        //save info to the database
-        //
-        // UserModel user = UserModel(
-        //   email: email,
-        //   uid: cred.user!.uid,
-        //   photoUrl: photoUrl,
-        //   username: username,
-        //   bio: bio,
-        //   followers: [],
-        //   following: [],
-        // );
-        // await _firestore.collection("users").doc(cred.user!.uid).set(
-        //   user.toJson(),
-        // );
 
         res = 'success';
       }
@@ -97,7 +63,6 @@ class AuthMethods {
     return res;
   }
 
-  //signout
   Future<void> signOut() async {
     await _auth.signOut();
   }

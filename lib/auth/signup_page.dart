@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:messmatebot/auth/auth_methods.dart';
-import 'package:messmatebot/auth/demo_navigation_page.dart';
 import 'package:messmatebot/auth/text_field_input_widget.dart';
+import 'package:messmatebot/presentation/route_manager/route_manager.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -32,9 +32,7 @@ class _LoginScreenState extends State<SignupScreen> {
     );
 
     if (res == 'success') {
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => const Demo()),
-      );
+      RouteManager.of(context).goToHomeScreen();
     } else {}
     setState(() {
       _isLoading = true;
