@@ -34,7 +34,7 @@ class AppRouter {
         pageBuilder: (context, state) {
           return const NoTransitionPage(
             name: Routes.home,
-            child: HomeScreen(),
+            child: HomePage(),
           );
         },
       ),
