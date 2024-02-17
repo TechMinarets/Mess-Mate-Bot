@@ -33,7 +33,7 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'Supportify',
+      title: 'Mess Mate Bot',
       debugShowCheckedModeBanner: false,
       routerConfig: AppRouter.router,
     );
