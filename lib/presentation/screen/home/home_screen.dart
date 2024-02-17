@@ -3,9 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:messmatebot/domain/model/chat_bot/request_body.dart';
 import 'package:messmatebot/presentation/screen/notifier/providers.dart';
-import 'package:messmatebot/presentation/widgets/assistant_image.dart';
-import 'package:messmatebot/presentation/widgets/feature_list.dart';
-import 'package:messmatebot/presentation/widgets/feature_text.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
@@ -24,76 +21,86 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _promptController = TextEditingController();
     final chatBotResponseList = ref.watch(chatResponseNotifierProvider);
     return Scaffold(
       appBar: AppBar(
         title: BounceInDown(
-          child: const Text('Rezvi GPT'),
+          child: const Text('Assitant Bot'),
         ),
         centerTitle: true,
-        leading: const Icon(Icons.menu),
+        leading: const Icon(Icons.arrow_back_ios),
         elevation: 0,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const AssistantImage(),
-            const SizedBox(
-              height: 20,
-            ),
-
-            for (int i = 0; i < chatBotResponseList.length; i++)
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
               Container(
-                padding: const EdgeInsets.all(8),
-                margin: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade200,
-                  borderRadius: BorderRadius.circular(10),
+                width: double.infinity,
+                height: 50,
+                decoration: ShapeDecoration(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  color: Colors.green.shade400,
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      chatBotResponseList[i].response,
-                      style: const TextStyle(
-                        fontSize: 16,
-                      ),
+                child: Center(
+                  child: const Text(
+                    'Click To See Grocery Expanse Table',
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.black,
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Text(
-                      'Rezvi GPT',
-                      style: TextStyle(
-                        fontSize: 12,
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
+              const SizedBox(
+                height: 20,
+              ),
 
-            // //chat text reaponse
-            // TextResponse(
-            //   generatedImageUrl: generatedImageUrl,
-            //   generatedContent: generatedContent,
-            // ),
+              for (int i = 0; i < chatBotResponseList.length; i++)
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  margin: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade200,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        chatBotResponseList[i].response,
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const Text(
+                        'Rezvi GPT',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Colors.grey,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
 
-            //image response
+              // //chat text reaponse
+              // TextResponse(
+              //   generatedImageUrl: generatedImageUrl,
+              //   generatedContent: generatedContent,
+              // ),
 
-            FeatureText(
-              generatedContent: generatedContent,
-              generatedImageUrl: generatedImageUrl,
-            ),
-
-            FeatureLists(
-              generatedContent: generatedContent,
-              generatedImageUrl: generatedImageUrl,
-              start: start,
-              delay: delay,
-            )
-          ],
+              //image response
+            ],
+          ),
         ),
       ),
 
@@ -126,13 +133,13 @@ class _HomePageState extends ConsumerState<HomePage> {
                 // 'https://images.unsplash.com/photo-1557862921-37829c790f19?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bWFufGVufDB8fDB8fHww',
               ),
             ),
-            const Expanded(
+            Expanded(
               child: Padding(
                 padding: EdgeInsets.only(left: 16, right: 8),
                 child: TextField(
-                  //controller: _commentController,
+                  controller: _promptController,
                   decoration: InputDecoration(
-                    hintText: 'Message RezviGPT..',
+                    hintText: 'Enter Prompt..',
                     border: InputBorder.none,
                   ),
                 ),
@@ -143,22 +150,17 @@ class _HomePageState extends ConsumerState<HomePage> {
                 ref
                     .read(chatResponseNotifierProvider.notifier)
                     .fetchChatBotResponse(
-                        requestBody: RequestBody(prompt: 'hi how are you'));
-                // await FirestoreMethods().postComment(
-                //   widget.snap['postId'],
-                //   _commentController.text,
-                //   user.uid,
-                //   user.username,
-                //   user.photoUrl,
-                //   );
+                        requestBody: RequestBody(
+                            prompt: _promptController.text.toString()));
+
                 setState(() {
-                  //  _commentController.text = "";
+                  _promptController.text = "";
                 });
               },
               child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
-                  child: const Icon(Icons.send)),
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+                child: const Icon(Icons.send),
+              ),
             )
           ],
         ),
