@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:messmatebot/auth/login_page.dart';
 import 'package:messmatebot/auth/signup_page.dart';
+import 'package:messmatebot/presentation/screen/auth/root/root_screen.dart';
 import 'package:messmatebot/presentation/screen/home/home_screen.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -25,7 +26,7 @@ class AppRouter {
         path: '/',
         pageBuilder: (context, state) => const NoTransitionPage(
           name: Routes.root,
-          child: Scaffold(body: Center(child: Text('Loading...'))),
+          child: RootScreen(),
         ),
       ),
       GoRoute(
@@ -34,7 +35,7 @@ class AppRouter {
         pageBuilder: (context, state) {
           return NoTransitionPage(
             name: Routes.home,
-            child: HomePage(),
+            child: HomeScreen(),
           );
         },
       ),
@@ -62,9 +63,6 @@ class AppRouter {
     redirect: (context, state) {
       final currentPath = state.uri.path;
 
-      if (currentPath == '/') {
-        return '/login';
-      }
       return null;
     },
   );

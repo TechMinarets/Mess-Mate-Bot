@@ -8,7 +8,7 @@ import 'package:messmatebot/injection_container/injection_container.dart';
 Future<void> setUpNetworkModule() async {
   const int timeOut = 120 * 1000;
   // const String baseUrl = 'http://192.168.0.171:8000/api/';
-  const String baseUrl = 'http://192.168.1.109:8000/api/';
+  const String baseUrl = 'http://10.100.161.25:8000/api/';
 
   // Interceptor
   getIt.registerLazySingleton<AuthInterceptor>(
