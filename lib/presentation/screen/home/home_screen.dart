@@ -1,16 +1,128 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:messmatebot/domain/model/category/category.dart';
+import 'package:messmatebot/presentation/screen/notifier/category_notifier.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  TextEditingController categoryController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController categoryController = TextEditingController();
+    void openModal({
+      required onTap,
+      required String title,
+      required String hintText,
+      required String buttonText,
+      Category? category,
+    }) {
+      showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return SingleChildScrollView(
+            padding: EdgeInsets.only(
+              bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+            ),
+            child: SizedBox(
+              height: 300,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          icon: const Icon(Icons.arrow_back_ios),
+                          color: Colors.black,
+                        ),
+                        const SizedBox(
+                          width: 15,
+                        ),
+                        Text(
+                          title,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 20,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Divider(
+                      height: 05,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15.0),
+                      child: TextField(
+                        controller: categoryController,
+                        decoration: InputDecoration(
+                          hintText: hintText,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(
+                              10.0,
+                            ), // Adjust the radius as needed
+                          ),
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: 16.0, // Adjust the padding as needed
+                            vertical: 12.0,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 15.0),
+                        child: ElevatedButton(
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.greenAccent,
+                            foregroundColor: Colors.black,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                10.0,
+                              ), // Adjust the radius as needed
+                            ),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: 12.0,
+                            ), // Adjust the padding as needed
+                            child: InkWell(
+                              onTap: onTap,
+                              child: Text(
+                                buttonText,
+                                style: TextStyle(
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         leading: Padding(
@@ -49,74 +161,108 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     color: Colors.grey.shade200,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      left: 20,
-                      right: 5,
-                      top: 10,
-                      bottom: 10,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Icon(Icons.book, size: 40),
-                        const SizedBox(width: 20),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Grocery Expanses',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            Text(
-                              'Total : 12000Tk',
-                              style: TextStyle(
-                                fontSize: 16,
-                                color: Colors.grey,
-                              ),
-                            ),
-                          ],
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(
+                          left: 20,
+                          right: 5,
+                          top: 10,
+                          bottom: 10,
                         ),
-                        Expanded(child: Container()),
-                        IconButton(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) => Dialog(
-                                child: ListView(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 16),
+                        child: ref.watch(categoryNotifierProvider).maybeWhen(
+                              success: (data) {
+                                return ListView.builder(
                                   shrinkWrap: true,
-                                  children: ['Delete Category', 'Edit Name']
-                                      .map(
-                                        (e) => InkWell(
-                                          onTap: () async {
-                                            if (e == 'Delete') {
-                                              // await FirestoreMethods()
-                                              //     .deletePost(widget.snap['postId']);
-                                              Navigator.of(context).pop();
-                                            }
-                                          },
-                                          child: Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                vertical: 12, horizontal: 16),
-                                            child: Text(e),
-                                          ),
+                                  itemCount: data.length,
+                                  itemBuilder: (context, index) {
+                                    return Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        const Icon(Icons.book, size: 40),
+                                        const SizedBox(width: 20),
+                                        Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              data[index].name,
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
                                         ),
-                                      )
-                                      .toList(),
-                                ),
-                              ),
-                            );
-                          },
-                          icon: Icon(Icons.more_vert),
-                        )
-                      ],
-                    ),
+                                        Expanded(child: Container()),
+                                        IconButton(
+                                          onPressed: () {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) => Dialog(
+                                                child: ListView(
+                                                  padding: const EdgeInsets
+                                                      .symmetric(vertical: 16),
+                                                  shrinkWrap: true,
+                                                  children: [
+                                                    InkWell(
+                                                      onTap: () {
+                                                        ref
+                                                            .read(
+                                                                categoryNotifierProvider
+                                                                    .notifier)
+                                                            .deleteCategory(
+                                                                category: data[
+                                                                    index]);
+                                                      },
+                                                      child: Text(
+                                                          'Delete Category'),
+                                                    ),
+                                                    InkWell(
+                                                      onTap: () {
+                                                        openModal(
+                                                          onTap: () {
+                                                            data[index].name =
+                                                                categoryController
+                                                                    .text;
+                                                            ref
+                                                                .read(categoryNotifierProvider
+                                                                    .notifier)
+                                                                .editCategory(
+                                                                    category: data[
+                                                                        index]);
+                                                          },
+                                                          title:
+                                                              'Edit Category Name',
+                                                          hintText:
+                                                              'Category Text',
+                                                          buttonText: 'Save',
+                                                          category: data[index],
+                                                        );
+                                                      },
+                                                      child: Expanded(
+                                                          child: Text(
+                                                              'Edit Name')),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          icon: Icon(Icons.more_vert),
+                                        )
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                              loading: () => const CircularProgressIndicator(),
+                              orElse: () => const Text('No Data'),
+                            ),
+                      ),
+                    ],
                   ),
                 )
               ]),
@@ -124,102 +270,15 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            builder: (context) {
-              return SingleChildScrollView(
-                padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom + 10,
-                ),
-                child: SizedBox(
-                  height: 300,
-                  child: Padding(
-                    padding: const EdgeInsets.fromLTRB(15, 15, 15, 10),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            IconButton(
-                              onPressed: () {
-                                Navigator.pop(context);
-                              },
-                              icon: const Icon(Icons.arrow_back_ios),
-                              color: Colors.black,
-                            ),
-                            const SizedBox(
-                              width: 15,
-                            ),
-                            const Text(
-                              'Add New Category',
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 20,
-                              ),
-                            ),
-                          ],
-                        ),
-                        Divider(
-                          height: 05,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15.0),
-                          child: TextField(
-                            controller: categoryController,
-                            decoration: InputDecoration(
-                              hintText: 'Category Name',
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  10.0,
-                                ), // Adjust the radius as needed
-                              ),
-                              contentPadding: EdgeInsets.symmetric(
-                                horizontal:
-                                    16.0, // Adjust the padding as needed
-                                vertical: 12.0,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 15.0),
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.greenAccent,
-                                foregroundColor: Colors.black,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(
-                                    10.0,
-                                  ), // Adjust the radius as needed
-                                ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                  vertical: 12.0,
-                                ), // Adjust the padding as needed
-                                child: Text(
-                                  'Create',
-                                  style: TextStyle(
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
+          openModal(
+            onTap: () {
+              ref
+                  .read(categoryNotifierProvider.notifier)
+                  .createCategory(name: categoryController.text);
             },
+            title: 'Add New Category',
+            hintText: 'Category Name',
+            buttonText: 'Create',
           );
         },
         child: Icon(Icons.add),

@@ -1,4 +1,8 @@
 import 'package:dio/dio.dart';
+import 'package:messmatebot/data/datasource/remote/api/account_api.dart';
+import 'package:messmatebot/data/datasource/remote/api/account_api_impl.dart';
+import 'package:messmatebot/data/datasource/remote/api/category_api.dart';
+import 'package:messmatebot/data/datasource/remote/api/category_api_impl.dart';
 import 'package:messmatebot/data/datasource/remote/api/chatbot_api.dart';
 import 'package:messmatebot/data/datasource/remote/api/chatbot_api_impl.dart';
 import 'package:messmatebot/data/datasource/remote/utils/api_client.dart';
@@ -35,5 +39,13 @@ Future<void> setUpNetworkModule() async {
 
   getIt.registerLazySingleton<ChatBotApi>(
     () => ChatBotApiImpl(client: getIt()),
+  );
+
+  getIt.registerLazySingleton<AccountApi>(
+    () => AccountApiImpl(client: getIt()),
+  );
+
+  getIt.registerLazySingleton<CategoryApi>(
+    () => CategoryApiImpl(client: getIt()),
   );
 }

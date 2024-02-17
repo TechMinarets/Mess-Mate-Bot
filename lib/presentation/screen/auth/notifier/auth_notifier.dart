@@ -1,11 +1,15 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:messmatebot/domain/model/account/user.dart';
+import 'package:messmatebot/domain/usecase/save_user_info_use_case.dart';
+import 'package:messmatebot/injection_container/injection_container.dart';
 import 'package:messmatebot/presentation/screen/auth/state/auth_ui_state.dart';
 
 class AuthNotifier extends StateNotifier<AuthUiState> {
   AuthNotifier() : super(const AuthUiState.loading()) {
     _checkAuthStatus();
   }
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   void _checkAuthStatus() async {
@@ -62,6 +66,15 @@ class AuthNotifier extends StateNotifier<AuthUiState> {
     try {
       await _auth.signInWithProvider(googleAuthProvider);
       state = const AuthUiState.authenticated();
+      final useCase = getIt<SaveUserInfoUseCase>();
+
+      useCase(
+          user: UserModel(
+        uuid: _auth.currentUser!.uid,
+        name: _auth.currentUser!.displayName ?? '',
+        email: _auth.currentUser!.email ?? '',
+        profilePicture: _auth.currentUser!.photoURL ?? '',
+      ));
     } catch (e) {
       state = AuthUiState.error(e.toString());
     }

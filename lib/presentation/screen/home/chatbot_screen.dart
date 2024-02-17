@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:messmatebot/domain/model/chat_bot/request_body.dart';
 import 'package:messmatebot/presentation/screen/notifier/chat_response_notifier.dart';
-import 'package:messmatebot/presentation/widgets/assistant_image.dart';
-import 'package:messmatebot/presentation/widgets/feature_list.dart';
-import 'package:messmatebot/presentation/widgets/feature_text.dart';
 import 'package:provider/provider.dart'; // Import Provider package
 
 class ChatBotPage extends StatefulWidget {
@@ -25,58 +22,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
         leading: const Icon(Icons.menu),
         elevation: 0,
       ),
-      body: SingleChildScrollView(
-        child: Consumer<ChatResponseNotifier>(
-          builder: (context, chatResponseNotifier, _) {
-            final chatBotResponseList = chatResponseNotifier.responseList;
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const AssistantImage(),
-                const SizedBox(height: 20),
-                for (int i = 0; i < chatBotResponseList.length; i++)
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    margin: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade200,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          chatBotResponseList[i].response,
-                          style: const TextStyle(
-                            fontSize: 16,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        const Text(
-                          'Rezvi GPT',
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: Colors.grey,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                FeatureText(
-                  generatedContent: chatResponseNotifier.generatedContent,
-                  generatedImageUrl: chatResponseNotifier.generatedImageUrl,
-                ),
-                FeatureLists(
-                  generatedImageUrl: chatResponseNotifier.generatedImageUrl,
-                  generatedContent: chatResponseNotifier.generatedContent,
-                  delay: chatResponseNotifier.delay,
-                  start: chatResponseNotifier.start,
-                ),
-              ],
-            );
-          },
-        ),
-      ),
+      body: Text('kaizuko'),
       bottomNavigationBar: SafeArea(
         child: Container(
           height: kToolbarHeight,

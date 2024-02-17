@@ -1,8 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:messmatebot/auth/login_page.dart';
 import 'package:messmatebot/auth/signup_page.dart';
+import 'package:messmatebot/presentation/screen/auth/auth_screen.dart';
 import 'package:messmatebot/presentation/screen/auth/root/root_screen.dart';
 import 'package:messmatebot/presentation/screen/home/home_screen.dart';
 
@@ -12,7 +12,7 @@ class Routes {
   static const String root = '/';
   static const String home = '/home';
   static const String signup = '/signup';
-  static const String login = '/login';
+  static const String auth = '/auth';
 }
 
 class AppRouter {
@@ -50,18 +50,22 @@ class AppRouter {
         },
       ),
       GoRoute(
-        name: Routes.login,
-        path: '/login',
+        name: Routes.auth,
+        path: '/auth',
         pageBuilder: (context, state) {
           return const NoTransitionPage(
-            name: Routes.login,
-            child: LoginScreen(),
+            name: Routes.auth,
+            child: AuthScreen(),
           );
         },
       ),
     ],
     redirect: (context, state) {
       final currentPath = state.uri.path;
+
+      if (currentPath == '/') {
+        return Routes.home;
+      }
 
       return null;
     },

@@ -17,7 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$Failure {
   String get message => throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(String message) cancelException,
@@ -33,7 +32,6 @@ mixin _$Failure {
     required TResult Function(String message) serializationException,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(String message)? cancelException,
@@ -65,7 +63,6 @@ mixin _$Failure {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(CancelException value) cancelException,
@@ -84,7 +81,6 @@ mixin _$Failure {
         serializationException,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(CancelException value)? cancelException,
@@ -134,7 +130,7 @@ class _$FailureCopyWithImpl<$Res, $Val extends Failure>
     implements $FailureCopyWith<$Res> {
   _$FailureCopyWithImpl(this._value, this._then);
 
-// ignore: unused_field
+  // ignore: unused_field
   final $Val _value;
 // ignore: unused_field
   final $Res Function($Val) _then;
