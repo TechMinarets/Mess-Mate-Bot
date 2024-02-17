@@ -64,7 +64,7 @@ class AppRouter {
       final currentPath = state.uri.path;
 
       if (currentPath == '/') {
-        return Routes.home;
+        return Routes.auth;
       }
 
       return null;

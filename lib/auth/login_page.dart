@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:messmatebot/auth/auth_methods.dart';
 import 'package:messmatebot/auth/signup_page.dart';
 import 'package:messmatebot/auth/text_field_input_widget.dart';
-import 'package:messmatebot/presentation/route_manager/route_manager.dart';
 import 'package:messmatebot/presentation/screen/auth/notifier/auth_notifier.dart';
 import 'package:messmatebot/presentation/screen/auth/state/auth_ui_state.dart';
 import 'package:messmatebot/presentation/screen/home/home_screen.dart';
