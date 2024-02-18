@@ -17,4 +17,9 @@ class ChatBotDataSourceImpl implements ChatBotDataSource {
   Future sendChatBotMessage({required Map<String, dynamic> requestBody}) async {
     return await _chatBotApi.sendChatBotMessage(requestBody: requestBody);
   }
+
+  @override
+  Future getTableData({required int categoryId}) async {
+    return await _chatBotApi.getTableData(categoryId: categoryId);
+  }
 }

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:messmatebot/domain/model/category/category.dart';
@@ -127,13 +128,16 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: const Padding(
+        leading: Padding(
           padding: EdgeInsets.only(left: 20),
           child: CircleAvatar(
-            backgroundImage: AssetImage('assets/images/rezvi.jpg'),
+            radius: 50,
+            backgroundImage: NetworkImage(
+                FirebaseAuth.instance.currentUser!.photoURL!,
+                scale: 2),
           ),
         ),
-        title: const Text('Welcome Back Rezvi ',
+        title: const Text('Welcome Home!',
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
         centerTitle: false,
         elevation: 0,

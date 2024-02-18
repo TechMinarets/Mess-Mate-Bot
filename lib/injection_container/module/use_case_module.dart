@@ -3,6 +3,7 @@ import 'package:messmatebot/domain/usecase/category/delete_category_use_case.dar
 import 'package:messmatebot/domain/usecase/category/get_category_use_case.dart';
 import 'package:messmatebot/domain/usecase/category/update_category_use_case.dart';
 import 'package:messmatebot/domain/usecase/chatbot/get_chat_bot_messages_use_case.dart';
+import 'package:messmatebot/domain/usecase/chatbot/get_table_data_use_case.dart';
 import 'package:messmatebot/domain/usecase/chatbot/send_chatbot_message_use_case.dart';
 import 'package:messmatebot/domain/usecase/save_user_info_use_case.dart';
 import 'package:messmatebot/injection_container/injection_container.dart';
@@ -44,5 +45,9 @@ Future<void> _setUpChatbotUseCases() async {
 
   getIt.registerLazySingleton(
     () => SendChatBotMessageUseCase(chatBotRepository: getIt()),
+  );
+
+  getIt.registerLazySingleton(
+    () => GetTableDataUseCase(chatBotRepository: getIt()),
   );
 }

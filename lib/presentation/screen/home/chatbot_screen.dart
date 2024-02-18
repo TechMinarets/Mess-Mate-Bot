@@ -6,6 +6,7 @@ import 'package:messmatebot/domain/model/chat_bot/request_body.dart';
 import 'package:messmatebot/presentation/screen/home/content_table.dart';
 import 'package:messmatebot/presentation/screen/home/openai_service.dart';
 import 'package:messmatebot/presentation/screen/notifier/chatbot_notifier.dart';
+import 'package:messmatebot/presentation/screen/notifier/table_notifier.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 import 'package:speech_to_text/speech_to_text.dart';
 
@@ -19,6 +20,7 @@ class ChatBotScreen extends ConsumerStatefulWidget {
 }
 
 class _ChatBotPageState extends ConsumerState<ChatBotScreen> {
+  final TextEditingController _promptController = TextEditingController();
   final speechToText = SpeechToText();
   final flutterTts = FlutterTts();
   String lastWords = '';
@@ -58,11 +60,12 @@ class _ChatBotPageState extends ConsumerState<ChatBotScreen> {
   void onSpeechResult(SpeechRecognitionResult result) {
     setState(() {
       lastWords = result.recognizedWords;
+      _promptController.text = lastWords;
     });
   }
 
   Future<void> systemSpeak(String content) async {
-    await flutterTts.speak(content);
+    // await flutterTts.speak(content);
   }
 
   @override
@@ -71,18 +74,35 @@ class _ChatBotPageState extends ConsumerState<ChatBotScreen> {
     super.dispose();
     speechToText.stop();
     flutterTts.stop();
+    _promptController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController _promptController = TextEditingController();
     final chatBotResponseList = ref.watch(chatBotNotifierProvider);
+    ref.read(tableNotifierProvider.notifier).clearTableData();
 
     return Scaffold(
       appBar: AppBar(
         title: BounceInDown(
           child: const Text('Assistant Bot'),
         ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              ref
+                  .read(tableNotifierProvider.notifier)
+                  .fetchTableData(categoryId: widget.categoryId);
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => DataListView()),
+              );
+            },
+            icon: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: const Icon(Icons.bar_chart, size: 30),
+            ),
+          )
+        ],
         centerTitle: true,
         leading: GestureDetector(
           onTap: () {
@@ -97,32 +117,6 @@ class _ChatBotPageState extends ConsumerState<ChatBotScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => DataListView()),
-                );
-              },
-              child: Container(
-                width: double.infinity,
-                height: 50,
-                decoration: ShapeDecoration(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  color: Colors.green.shade400,
-                ),
-                child: Center(
-                  child: const Text(
-                    'Click To See Grocery Expanse Table',
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ),
-            ),
             const SizedBox(
               height: 20,
             ),
@@ -135,6 +129,7 @@ class _ChatBotPageState extends ConsumerState<ChatBotScreen> {
                     return Expanded(
                       child: ListView.builder(
                         itemCount: messages.length,
+                        reverse: true,
                         itemBuilder: (context, index) {
                           var prompt = messages[index].prompt;
                           var response = messages[index].response;
@@ -301,11 +296,13 @@ class _ChatBotPageState extends ConsumerState<ChatBotScreen> {
                   },
                   child: InkWell(
                     onTap: () async {
+                      final promptText = _promptController.text;
+                      _promptController.text = '';
                       ref
                           .read(chatBotNotifierProvider.notifier)
                           .sendChatBotMessage(
                             requestBody: RequestBody(
-                                prompt: _promptController.text.toString(),
+                                prompt: promptText.toString(),
                                 categoryId: widget.categoryId),
                           );
                     },

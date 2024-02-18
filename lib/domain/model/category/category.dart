@@ -5,7 +5,6 @@ class Category {
   final String? user;
   final String createdAt;
   final String modifiedAt;
-  final List? messages;
 
   Category({
     required this.id,
@@ -14,7 +13,6 @@ class Category {
     required this.table,
     required this.createdAt,
     required this.modifiedAt,
-    required this.messages,
   });
 
   toJson() {

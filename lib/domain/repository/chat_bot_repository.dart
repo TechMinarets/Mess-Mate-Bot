@@ -5,4 +5,6 @@ abstract class ChatBotRepository {
   Future<ChatBotMessage> sendChatBotMessage({required RequestBody requestBody});
 
   Future<List<ChatBotMessage>> getChatBotMessages({required int categoryId});
+
+  Future getTableData({required int categoryId});
 }

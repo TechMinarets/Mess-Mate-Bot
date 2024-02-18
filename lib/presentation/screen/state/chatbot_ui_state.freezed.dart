@@ -23,7 +23,6 @@ mixin _$ChatbotUiState {
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
@@ -39,7 +38,6 @@ mixin _$ChatbotUiState {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(LoadingState value) loading,
@@ -47,7 +45,6 @@ mixin _$ChatbotUiState {
     required TResult Function(ErrorState value) error,
   }) =>
       throw _privateConstructorUsedError;
-
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LoadingState value)? loading,
@@ -77,7 +74,7 @@ class _$ChatbotUiStateCopyWithImpl<$Res, $Val extends ChatbotUiState>
     implements $ChatbotUiStateCopyWith<$Res> {
   _$ChatbotUiStateCopyWithImpl(this._value, this._then);
 
-// ignore: unused_field
+  // ignore: unused_field
   final $Val _value;
 // ignore: unused_field
   final $Res Function($Val) _then;
@@ -232,7 +229,7 @@ class _$SuccessStateImpl implements SuccessState {
   @override
   List<ChatBotMessage> get messages {
     if (_messages is EqualUnmodifiableListView) return _messages;
-// ignore: implicit_dynamic_type
+    // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_messages);
   }
 

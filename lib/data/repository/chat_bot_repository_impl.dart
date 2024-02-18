@@ -44,4 +44,23 @@ class ChatBotRepositoryImpl implements ChatBotRepository {
       categoryId: response['category'],
     );
   }
+
+  @override
+  Future getTableData({required int categoryId}) async {
+    final response =
+        await _chatBotDataSource.getTableData(categoryId: categoryId);
+
+    Map result = response;
+    List<List> tableList = [response['table']['columns']];
+
+    for (var data in response['table']['data']) {
+      print(data);
+      tableList.add(data);
+    }
+    result['table'] = tableList;
+
+    print(result);
+
+    return result;
+  }
 }

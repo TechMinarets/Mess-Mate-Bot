@@ -90,9 +90,6 @@ class AppRouter {
     redirect: (context, state) {
       final currentPath = state.uri.path;
 
-      if (currentPath == '/') {
-        return Routes.contentPage;
-      }
       return null;
     },
   );

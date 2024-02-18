@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'category_ui_state.dart';
+part of 'table_ui_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,29 +15,31 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$CategoryUiState {
+mixin _$TableUiState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Category> categoryList) success,
+    required TResult Function(Map<dynamic, dynamic> tableData) success,
     required TResult Function(String message) error,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Category> categoryList)? success,
+    TResult? Function(Map<dynamic, dynamic> tableData)? success,
     TResult? Function(String message)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Category> categoryList)? success,
+    TResult Function(Map<dynamic, dynamic> tableData)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(LoadingState value) loading,
@@ -45,6 +47,7 @@ mixin _$CategoryUiState {
     required TResult Function(ErrorState value) error,
   }) =>
       throw _privateConstructorUsedError;
+
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(LoadingState value)? loading,
@@ -63,20 +66,20 @@ mixin _$CategoryUiState {
 }
 
 /// @nodoc
-abstract class $CategoryUiStateCopyWith<$Res> {
-  factory $CategoryUiStateCopyWith(
-          CategoryUiState value, $Res Function(CategoryUiState) then) =
-      _$CategoryUiStateCopyWithImpl<$Res, CategoryUiState>;
+abstract class $TableUiStateCopyWith<$Res> {
+  factory $TableUiStateCopyWith(
+          TableUiState value, $Res Function(TableUiState) then) =
+      _$TableUiStateCopyWithImpl<$Res, TableUiState>;
 }
 
 /// @nodoc
-class _$CategoryUiStateCopyWithImpl<$Res, $Val extends CategoryUiState>
-    implements $CategoryUiStateCopyWith<$Res> {
-  _$CategoryUiStateCopyWithImpl(this._value, this._then);
+class _$TableUiStateCopyWithImpl<$Res, $Val extends TableUiState>
+    implements $TableUiStateCopyWith<$Res> {
+  _$TableUiStateCopyWithImpl(this._value, this._then);
 
-  // ignore: unused_field
+// ignore: unused_field
   final $Val _value;
-  // ignore: unused_field
+// ignore: unused_field
   final $Res Function($Val) _then;
 }
 
@@ -89,7 +92,7 @@ abstract class _$$LoadingStateImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$LoadingStateImplCopyWithImpl<$Res>
-    extends _$CategoryUiStateCopyWithImpl<$Res, _$LoadingStateImpl>
+    extends _$TableUiStateCopyWithImpl<$Res, _$LoadingStateImpl>
     implements _$$LoadingStateImplCopyWith<$Res> {
   __$$LoadingStateImplCopyWithImpl(
       _$LoadingStateImpl _value, $Res Function(_$LoadingStateImpl) _then)
@@ -103,7 +106,7 @@ class _$LoadingStateImpl implements LoadingState {
 
   @override
   String toString() {
-    return 'CategoryUiState.loading()';
+    return 'TableUiState.loading()';
   }
 
   @override
@@ -119,7 +122,7 @@ class _$LoadingStateImpl implements LoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Category> categoryList) success,
+    required TResult Function(Map<dynamic, dynamic> tableData) success,
     required TResult Function(String message) error,
   }) {
     return loading();
@@ -129,7 +132,7 @@ class _$LoadingStateImpl implements LoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Category> categoryList)? success,
+    TResult? Function(Map<dynamic, dynamic> tableData)? success,
     TResult? Function(String message)? error,
   }) {
     return loading?.call();
@@ -139,7 +142,7 @@ class _$LoadingStateImpl implements LoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Category> categoryList)? success,
+    TResult Function(Map<dynamic, dynamic> tableData)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -184,7 +187,7 @@ class _$LoadingStateImpl implements LoadingState {
   }
 }
 
-abstract class LoadingState implements CategoryUiState {
+abstract class LoadingState implements TableUiState {
   const factory LoadingState() = _$LoadingStateImpl;
 }
 
@@ -194,12 +197,12 @@ abstract class _$$SuccessStateImplCopyWith<$Res> {
           _$SuccessStateImpl value, $Res Function(_$SuccessStateImpl) then) =
       __$$SuccessStateImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<Category> categoryList});
+  $Res call({Map<dynamic, dynamic> tableData});
 }
 
 /// @nodoc
 class __$$SuccessStateImplCopyWithImpl<$Res>
-    extends _$CategoryUiStateCopyWithImpl<$Res, _$SuccessStateImpl>
+    extends _$TableUiStateCopyWithImpl<$Res, _$SuccessStateImpl>
     implements _$$SuccessStateImplCopyWith<$Res> {
   __$$SuccessStateImplCopyWithImpl(
       _$SuccessStateImpl _value, $Res Function(_$SuccessStateImpl) _then)
@@ -208,13 +211,13 @@ class __$$SuccessStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? categoryList = null,
+    Object? tableData = null,
   }) {
     return _then(_$SuccessStateImpl(
-      null == categoryList
-          ? _value._categoryList
-          : categoryList // ignore: cast_nullable_to_non_nullable
-              as List<Category>,
+      null == tableData
+          ? _value._tableData
+          : tableData // ignore: cast_nullable_to_non_nullable
+              as Map<dynamic, dynamic>,
     ));
   }
 }
@@ -222,20 +225,20 @@ class __$$SuccessStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$SuccessStateImpl implements SuccessState {
-  const _$SuccessStateImpl(final List<Category> categoryList)
-      : _categoryList = categoryList;
+  const _$SuccessStateImpl(final Map<dynamic, dynamic> tableData)
+      : _tableData = tableData;
 
-  final List<Category> _categoryList;
+  final Map<dynamic, dynamic> _tableData;
   @override
-  List<Category> get categoryList {
-    if (_categoryList is EqualUnmodifiableListView) return _categoryList;
-    // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_categoryList);
+  Map<dynamic, dynamic> get tableData {
+    if (_tableData is EqualUnmodifiableMapView) return _tableData;
+// ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_tableData);
   }
 
   @override
   String toString() {
-    return 'CategoryUiState.success(categoryList: $categoryList)';
+    return 'TableUiState.success(tableData: $tableData)';
   }
 
   @override
@@ -244,12 +247,12 @@ class _$SuccessStateImpl implements SuccessState {
         (other.runtimeType == runtimeType &&
             other is _$SuccessStateImpl &&
             const DeepCollectionEquality()
-                .equals(other._categoryList, _categoryList));
+                .equals(other._tableData, _tableData));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_categoryList));
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_tableData));
 
   @JsonKey(ignore: true)
   @override
@@ -261,32 +264,32 @@ class _$SuccessStateImpl implements SuccessState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Category> categoryList) success,
+    required TResult Function(Map<dynamic, dynamic> tableData) success,
     required TResult Function(String message) error,
   }) {
-    return success(categoryList);
+    return success(tableData);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Category> categoryList)? success,
+    TResult? Function(Map<dynamic, dynamic> tableData)? success,
     TResult? Function(String message)? error,
   }) {
-    return success?.call(categoryList);
+    return success?.call(tableData);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Category> categoryList)? success,
+    TResult Function(Map<dynamic, dynamic> tableData)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(categoryList);
+      return success(tableData);
     }
     return orElse();
   }
@@ -326,11 +329,11 @@ class _$SuccessStateImpl implements SuccessState {
   }
 }
 
-abstract class SuccessState implements CategoryUiState {
-  const factory SuccessState(final List<Category> categoryList) =
+abstract class SuccessState implements TableUiState {
+  const factory SuccessState(final Map<dynamic, dynamic> tableData) =
       _$SuccessStateImpl;
 
-  List<Category> get categoryList;
+  Map<dynamic, dynamic> get tableData;
   @JsonKey(ignore: true)
   _$$SuccessStateImplCopyWith<_$SuccessStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -347,7 +350,7 @@ abstract class _$$ErrorStateImplCopyWith<$Res> {
 
 /// @nodoc
 class __$$ErrorStateImplCopyWithImpl<$Res>
-    extends _$CategoryUiStateCopyWithImpl<$Res, _$ErrorStateImpl>
+    extends _$TableUiStateCopyWithImpl<$Res, _$ErrorStateImpl>
     implements _$$ErrorStateImplCopyWith<$Res> {
   __$$ErrorStateImplCopyWithImpl(
       _$ErrorStateImpl _value, $Res Function(_$ErrorStateImpl) _then)
@@ -377,7 +380,7 @@ class _$ErrorStateImpl implements ErrorState {
 
   @override
   String toString() {
-    return 'CategoryUiState.error(message: $message)';
+    return 'TableUiState.error(message: $message)';
   }
 
   @override
@@ -401,7 +404,7 @@ class _$ErrorStateImpl implements ErrorState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(List<Category> categoryList) success,
+    required TResult Function(Map<dynamic, dynamic> tableData) success,
     required TResult Function(String message) error,
   }) {
     return error(message);
@@ -411,7 +414,7 @@ class _$ErrorStateImpl implements ErrorState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(List<Category> categoryList)? success,
+    TResult? Function(Map<dynamic, dynamic> tableData)? success,
     TResult? Function(String message)? error,
   }) {
     return error?.call(message);
@@ -421,7 +424,7 @@ class _$ErrorStateImpl implements ErrorState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(List<Category> categoryList)? success,
+    TResult Function(Map<dynamic, dynamic> tableData)? success,
     TResult Function(String message)? error,
     required TResult orElse(),
   }) {
@@ -466,7 +469,7 @@ class _$ErrorStateImpl implements ErrorState {
   }
 }
 
-abstract class ErrorState implements CategoryUiState {
+abstract class ErrorState implements TableUiState {
   const factory ErrorState(final String message) = _$ErrorStateImpl;
 
   String get message;

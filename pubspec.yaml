@@ -55,6 +55,7 @@ dependencies:
   provider: ^6.1.1
   pie_chart:
   speech_to_text:
+  flutter_spinkit: ^5.2.0
 
 
 

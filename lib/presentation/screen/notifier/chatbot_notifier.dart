@@ -34,15 +34,26 @@ class ChatBotNotifier extends StateNotifier<ChatbotUiState> {
   }
 
   Future<void> sendChatBotMessage({required RequestBody requestBody}) async {
-    state = const ChatbotUiState.loading();
+    // state = const ChatbotUiState.loading();
 
     try {
+      _chatBotMessageList.insert(
+          0,
+          ChatBotMessage(
+            prompt: requestBody.prompt,
+            response: 'Typing...',
+            categoryId: requestBody.categoryId,
+          ));
       final useCase = getIt<SendChatBotMessageUseCase>();
       final response = await useCase(requestBody: requestBody);
 
       state = response.when(
         success: (categoryList) {
-          _chatBotMessageList.add(categoryList);
+          if (_chatBotMessageList.isNotEmpty) {
+            _chatBotMessageList.removeAt(0);
+          }
+
+          _chatBotMessageList.insert(0, categoryList);
           return ChatbotUiState.success(_chatBotMessageList);
         },
         failure: (failure) => ChatbotUiState.error(failure.message),

@@ -5,6 +5,7 @@ class ChatBotApiImpl implements ChatBotApi {
   final ApiClient _client;
 
   static const String chatbotUrl = 'category/<category_id>/chat-history';
+  static const String tableUrl = 'category/categories/<category_id>/table';
 
   ChatBotApiImpl({required ApiClient client}) : _client = client;
 
@@ -23,6 +24,14 @@ class ChatBotApiImpl implements ChatBotApi {
       path: chatbotUrl.replaceFirst(
           '<category_id>', requestBody['category'].toString()),
       data: requestBody,
+      converter: (json) => json,
+    );
+  }
+
+  @override
+  Future getTableData({required int categoryId}) async {
+    return await _client.get(
+      path: tableUrl.replaceFirst('<category_id>', categoryId.toString()),
       converter: (json) => json,
     );
   }

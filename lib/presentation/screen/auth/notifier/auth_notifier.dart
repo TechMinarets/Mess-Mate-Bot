@@ -7,12 +7,12 @@ import 'package:messmatebot/presentation/screen/auth/state/auth_ui_state.dart';
 
 class AuthNotifier extends StateNotifier<AuthUiState> {
   AuthNotifier() : super(const AuthUiState.loading()) {
-    _checkAuthStatus();
+    checkAuthStatus();
   }
 
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  void _checkAuthStatus() async {
+  void checkAuthStatus() async {
     state = FirebaseAuth.instance.currentUser != null
         ? const AuthUiState.authenticated()
         : const AuthUiState.anonymous();

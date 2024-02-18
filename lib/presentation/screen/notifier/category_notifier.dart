@@ -39,7 +39,6 @@ class CategoryNotifier extends StateNotifier<CategoryUiState> {
           createdAt: DateTime.now().toString(),
           modifiedAt: DateTime.now().toString(),
           user: FirebaseAuth.instance.currentUser!.uid,
-          messages: null,
         ),
       );
 

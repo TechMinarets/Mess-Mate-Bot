@@ -23,7 +23,6 @@ class GetCategoryUseCase {
               user: FirebaseAuth.instance.currentUser!.uid,
               createdAt: response['created_at'],
               modifiedAt: response['modified_at'],
-              messages: null,
             ),
           );
         }
