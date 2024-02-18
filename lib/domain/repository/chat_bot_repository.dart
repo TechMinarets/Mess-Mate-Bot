@@ -1,6 +1,10 @@
+import 'package:messmatebot/domain/model/chat_bot/chatbot_message.dart';
 import 'package:messmatebot/domain/model/chat_bot/request_body.dart';
-import 'package:messmatebot/domain/model/chat_bot/response_body.dart';
 
 abstract class ChatBotRepository {
-  Future<ResponseBody> getChatBotResponse({required RequestBody requestBody});
+  Future<ChatBotMessage> sendChatBotMessage({required RequestBody requestBody});
+
+  Future<List<ChatBotMessage>> getChatBotMessages({required int categoryId});
+
+  Future getTableData({required int categoryId});
 }

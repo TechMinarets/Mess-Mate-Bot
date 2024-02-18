@@ -44,4 +44,14 @@ class MobileRouteManager implements RouteManager {
   void goToHomeScreen() {
     return context.pushReplacementNamed(Routes.home);
   }
+
+  @override
+  Future<void> goToChatBotPage({required int categoryId}) {
+    return context.pushNamed(
+      Routes.chatBot,
+      queryParameters: {
+        'category_id': categoryId.toString(),
+      },
+    );
+  }
 }

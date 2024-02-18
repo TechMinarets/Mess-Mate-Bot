@@ -1,9 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:messmatebot/auth/login_page.dart';
 import 'package:messmatebot/auth/signup_page.dart';
+import 'package:messmatebot/presentation/screen/auth/auth_screen.dart';
 import 'package:messmatebot/presentation/screen/auth/root/root_screen.dart';
+import 'package:messmatebot/presentation/screen/home/chatbot_screen.dart';
+import 'package:messmatebot/presentation/screen/home/content_table.dart';
 import 'package:messmatebot/presentation/screen/home/home_screen.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -12,7 +14,9 @@ class Routes {
   static const String root = '/';
   static const String home = '/home';
   static const String signup = '/signup';
-  static const String login = '/login';
+  static const String auth = '/auth';
+  static const String chatBot = '/chatBot';
+  static const String contentPage = '/contentPage';
 }
 
 class AppRouter {
@@ -50,12 +54,35 @@ class AppRouter {
         },
       ),
       GoRoute(
-        name: Routes.login,
-        path: '/login',
+        name: Routes.auth,
+        path: '/auth',
         pageBuilder: (context, state) {
           return const NoTransitionPage(
-            name: Routes.login,
-            child: LoginScreen(),
+            name: Routes.auth,
+            child: AuthScreen(),
+          );
+        },
+      ),
+      GoRoute(
+        name: Routes.chatBot,
+        path: '/chatBot',
+        pageBuilder: (context, state) {
+          final queryParameters = state.uri.queryParameters;
+          return NoTransitionPage(
+            name: Routes.chatBot,
+            child: ChatBotScreen(
+                categoryId: int.parse(queryParameters['category_id']!)),
+          );
+        },
+      ),
+      GoRoute(
+        name: Routes.contentPage,
+        path: '/contentPage',
+        pageBuilder: (context, state) {
+          final queryParameters = state.uri.queryParameters;
+          return NoTransitionPage(
+            name: Routes.chatBot,
+            child: DataListView(),
           );
         },
       ),

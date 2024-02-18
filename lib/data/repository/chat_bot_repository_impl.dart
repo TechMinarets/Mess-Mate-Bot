@@ -1,6 +1,6 @@
 import 'package:messmatebot/data/repository/source/remote/chat_bot_data_source.dart';
+import 'package:messmatebot/domain/model/chat_bot/chatbot_message.dart';
 import 'package:messmatebot/domain/model/chat_bot/request_body.dart';
-import 'package:messmatebot/domain/model/chat_bot/response_body.dart';
 import 'package:messmatebot/domain/repository/chat_bot_repository.dart';
 
 class ChatBotRepositoryImpl implements ChatBotRepository {
@@ -11,12 +11,56 @@ class ChatBotRepositoryImpl implements ChatBotRepository {
   }) : _chatBotDataSource = chatBotDataSource;
 
   @override
-  Future<ResponseBody> getChatBotResponse(
+  Future<List<ChatBotMessage>> getChatBotMessages(
+      {required int categoryId}) async {
+    final response =
+        await _chatBotDataSource.getChatBotMessages(categoryId: categoryId);
+    List<ChatBotMessage> result = [];
+    for (var data in response) {
+      result.add(
+        ChatBotMessage(
+          prompt: data['prompt'],
+          response: data['response'],
+          categoryId: data['category'],
+        ),
+      );
+    }
+    return result;
+  }
+
+  @override
+  Future<ChatBotMessage> sendChatBotMessage(
       {required RequestBody requestBody}) async {
-    final result =
-        await _chatBotDataSource.getChatBotResponse(prompt: requestBody.prompt);
-    return ResponseBody(
-      response: result['response'],
+    final response = await _chatBotDataSource.sendChatBotMessage(
+      requestBody: {
+        'prompt': requestBody.prompt,
+        'response': 'tamim is bolod',
+        'category': requestBody.categoryId,
+      },
     );
+    return ChatBotMessage(
+      prompt: response['prompt'],
+      response: response['response'],
+      categoryId: response['category'],
+    );
+  }
+
+  @override
+  Future getTableData({required int categoryId}) async {
+    final response =
+        await _chatBotDataSource.getTableData(categoryId: categoryId);
+
+    Map result = response;
+    List<List> tableList = [response['table']['columns']];
+
+    for (var data in response['table']['data']) {
+      print(data);
+      tableList.add(data);
+    }
+    result['table'] = tableList;
+
+    print(result);
+
+    return result;
   }
 }
